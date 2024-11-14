@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FASHION ALDEANA</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+
+        /* Sección de anuncios */
+        .announcement {
+            background-color: #f8e71c;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Contenedor de productos */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            justify-content: center;
+        }
+        
+        /* Tarjeta de producto */
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 15px;
+            width: 220px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .product h2 {
+            font-size: 1.2em;
+            color: #333;
+            margin: 10px 0;
+        }
+        .product p {
+            color: #555;
+            margin: 10px;
+            font-size: 0.9em;
+        }
+        .price {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .buy-btn {
+            display: block;
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            margin: 15px;
+            border-radius: 5px;
+        }
+        .buy-btn:hover {
+            background-color: #357abd;
+        }
+
+        /* Estilos del formulario de carga */
+        .upload-section {
+            background-color: #eef2f7;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 20px auto;
+            border-radius: 8px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>FASHION ALDEANA</h1>
+    <p>¡Sube tus propios productos y personaliza tu tienda!</p>
+</header>
+
+<div class="announcement">
+    ¡ENVÍO GRATIS en pedidos mayores a $50! ¡Oferta válida por tiempo limitado!
+</div>
+
+<!-- Sección de carga de imágenes -->
+<div class="upload-section">
+    <h2>Sube un nuevo producto</h2>
+    <input type="file" id="imageUpload" accept="image/*"><br><br>
+    <input type="text" id="productName" placeholder="Nombre del producto"><br><br>
+    <input type="text" id="productPrice" placeholder="Precio"><br><br>
+    <button onclick="addProduct()">Agregar Producto</button>
+</div>
+
+<!-- Contenedor de productos -->
+<div class="container" id="productContainer">
+    <!-- Productos precargados -->
+    <div class="product">
+        <img src="camiseta.jpg" alt="Camiseta Básica">
+        <h2>Camiseta Básica</h2>
+        <p>Camiseta de algodón suave, disponible en varios colores.</p>
+        <p class="price">$10.99</p>
+        <a href="#" class="buy-btn">Comprar</a>
+    </div>
+</div>
+
+<script>
+    // Función para agregar un nuevo producto con imagen subida
+    function addProduct() {
+        const productContainer = document.getElementById('productContainer');
+        const imageUpload = document.getElementById('imageUpload').files[0];
+        const productName = document.getElementById('productName').value;
+        const productPrice = document.getElementById('productPrice').value;
+
+        // Validar que se ha subido una imagen y que los campos no están vacíos
+        if (!imageUpload || !productName || !productPrice) {
+            alert("Por favor, completa todos los campos y sube una imagen.");
+            return;
+        }
+
+        // Crear una URL de objeto para la imagen cargada
+        const imageURL = URL.createObjectURL(imageUpload);
+
+        // Crear la estructura del nuevo producto
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+
+        const img = document.createElement('img');
+        img.src = imageURL;
+        img.alt = productName;
+
+        const title = document.createElement('h2');
+        title.textContent = productName;
+
+        const price = document.createElement('p');
+        price.classList.add('price');
+        price.textContent = `$${productPrice}`;
+
+        const button = document.createElement('a');
+        button.href = "#";
+        button.classList.add('buy-btn');
+        button.textContent = "Comprar";
+
+        // Agregar elementos al contenedor de producto
+        productDiv.appendChild(img);
+        productDiv.appendChild(title);
+        productDiv.appendChild(price);
+        productDiv.appendChild(button);
+
+        // Agregar el nuevo producto al contenedor principal
+        productContainer.appendChild(productDiv);
+
+        // Limpiar campos de entrada
+        document.getElementById('imageUpload').value = "";
+        document.getElementById('productName').value = "";
+        document.getElementById('productPrice').value = "";
+    }
+</script>
+
+</body>
+</html>
